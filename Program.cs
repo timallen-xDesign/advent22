@@ -1,34 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, Advent of Code 2022!");
-
-
-var file = System.IO.File.ReadAllLines("day1.1.test.txt");
-
+﻿var file = System.IO.File.ReadAllLines("day1.1.txt");
 var elves = new List<Elf>();
 elves.Add(new Elf());
 
 foreach(var line in file)
 {
-    if (line.Trim().Equals(string.Empty))
-        elves.Add(new Elf());
+    int val = 0;
+    if(int.TryParse(line, out val))
+        elves.Last().CaloriesCarried = elves.Last().CaloriesCarried + val;
     else
-    {
-        int newValue = int.Parse(line.Trim());
-        elves[elves.Count()-1].CaloriesCarried = elves.Last().CaloriesCarried + newValue;
-    }
+        elves.Add(new Elf());
 }
 
-System.Console.WriteLine($"We have {elves.Count()} elves");
+var orderedList = elves.OrderBy(e=>e.CaloriesCarried);
+System.Console.WriteLine( "Largest: " + orderedList.Last().CaloriesCarried);
+System.Console.WriteLine( "Total of top 3: " + orderedList.TakeLast(3).Sum(f=>f.CaloriesCarried));
 
-int lastHighest = 0;
-Elf largestElf = elves.First();
-for(var i = 0; i < elves.Count(); i++)
-{
-    if( elves[i].CaloriesCarried > lastHighest)
-    {
-        largestElf = elves[i];
-        lastHighest = elves[i].CaloriesCarried;
-    }
-}
-
-System.Console.WriteLine($"Elf #{elves.IndexOf(largestElf)} is carrying {lastHighest}");
