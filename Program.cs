@@ -14,4 +14,3 @@ foreach(var line in file)
 var orderedList = elves.OrderBy(e=>e.CaloriesCarried);
 System.Console.WriteLine( "Largest: " + orderedList.Last().CaloriesCarried);
 System.Console.WriteLine( "Total of top 3: " + orderedList.TakeLast(3).Sum(f=>f.CaloriesCarried));
-
